@@ -16,17 +16,24 @@ class RepeatedTimer(object):
         self.args       = args
         self.kwargs     = kwargs
         self.is_running = False
+        self.found      = False
         #self.start()
 
     def _run(self):
         self.is_running = False
-        self.found = False
-        self.found = self.function(*self.args, **self.kwargs)
+        self.found = self.function(*self.args, **self.kwargs)        
         self.start()
 
     def start(self):
         if not self.is_running:
-            interval = self.options.checking_interval
+            if self.found:
+                #interval = self.options.idle_internal
+                # This session is for tempraty testing only
+                self.stop()
+                return
+            else:
+                interval = self.options.checking_interval                
+             
             self._timer = Timer( interval, self._run)
             self._timer.start()
             self.is_running = True

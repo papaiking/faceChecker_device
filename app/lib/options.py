@@ -1,3 +1,11 @@
+"""
+@Author: Thuc VX<vxthuc@labsofthings.com>
+@ORG: labsofthings.com
+@date: 27 May 2017
+
+Purpose: This package parse running parameters and dave into option object.
+"""
+
 from argparse import ArgumentParser
 
 

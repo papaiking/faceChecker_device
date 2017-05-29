@@ -1,7 +1,10 @@
 from rtimer import RepeatedTimer
 from search import Search
 from init import Log
+from event import Event
+from camera import Camera
 
+import json
 import time
 
 
@@ -10,9 +13,11 @@ class FaceChecker:
     def __init__(self, options, config):
         self.options = options
         self.config = config
-        search = Search(options, config)
+        self.search = Search(options, config)
+        self.event = Event(config)
+        self.camera = Camera(config)
 
-        Log.info( 'Linkedface token is: ' + search.linkedface_token )
+        Log.info( 'Linkedface token is: ' + self.search.linkedface_token )
 
     """
     This function create a timer with checkpoint function. 
@@ -23,28 +28,21 @@ class FaceChecker:
         timer = RepeatedTimer(self.options, self.checkPoint)
         timer.start()
 
-        #self._get_prams()
-        
-        #return
-
-    def _get_prams(self):
-        #print self.process.execute("date")
-        print (time.strftime("%H:%M:%S"))
-        print ('frequency: ' + str(self.options.checking_interval) )
-        print ('frequency: ' + str(self.options.idle_internal) )
-
-        print ('Linkedface search: ' + self.config['Linkedface'].get('LINKEDAFCE_search') )
-
+    """
+    Start to check event: capture image, search and then send event
+    """
     def checkPoint(self):
         print ('Start a check point')
         # Capture image
-        captured_img = '2017-05-26/118.70.217.99_1495781429.20515_image201610280001.jpg'
+        captured_img = self.camera.captureFaceimage( withFace=True )
 
         # Search for image
-
-
-
-
-        # Send event if happening
-
+        search_res = self.search.searchUser(captured_img)      
+        if (search_res is not None) and (search_res.get('status')==1):
+            #Log.info('Search response: ' + json.dumps(search_res))
+            # Send event if happening
+            self.event.sendEvent(search_res.get('sample'), search_res.get('profiles')[0])
+            return True
+        else:
+            return False
 

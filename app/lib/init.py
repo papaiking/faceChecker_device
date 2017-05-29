@@ -18,7 +18,7 @@ Log = logging.getLogger('Linkedace_FaceChecker')
 Log.setLevel(logging.DEBUG)
 # Add the log message handler to the logger
 handler = logging.handlers.RotatingFileHandler(
-              'facechecker.log', maxBytes=20, backupCount=5)
+              './logs/facechecker.log', maxBytes=20, backupCount=5)
 Log.addHandler(handler)
 
 # create console handler with a higher log level
