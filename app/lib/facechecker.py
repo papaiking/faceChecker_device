@@ -34,7 +34,8 @@ class FaceChecker:
     def checkPoint(self):
         print ('Start a check point')
         # Capture image
-        captured_img = self.camera.captureFaceimage( withFace=True )
+        captured_img = self.camera.captureFaceimage( withFace=False )
+        Log.info('Captured file is: ' + captured_img)
 
 #        # Search for image
 #        search_res = self.search.searchUser(captured_img)      

@@ -1,0 +1,4 @@
+configparser==
+picamera==
+cv2==
+dlib==
