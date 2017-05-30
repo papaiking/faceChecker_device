@@ -1,10 +1,10 @@
 import os
-import configparser
+from ConfigParser import ConfigParser
 
 class Config():
 
     def __init__(self):
-        config = configparser.ConfigParser()
+        config = ConfigParser()
         
         # Read configuration file
         lib_dir = os.path.dirname( os.path.realpath(__file__) )

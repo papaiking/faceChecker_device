@@ -36,13 +36,13 @@ class FaceChecker:
         # Capture image
         captured_img = self.camera.captureFaceimage( withFace=True )
 
-        # Search for image
-        search_res = self.search.searchUser(captured_img)      
-        if (search_res is not None) and (search_res.get('status')==1):
-            #Log.info('Search response: ' + json.dumps(search_res))
-            # Send event if happening
-            self.event.sendEvent(search_res.get('sample'), search_res.get('profiles')[0])
-            return True
-        else:
-            return False
+#        # Search for image
+#        search_res = self.search.searchUser(captured_img)      
+#        if (search_res is not None) and (search_res.get('status')==1):
+#            #Log.info('Search response: ' + json.dumps(search_res))
+#            # Send event if happening
+#            self.event.sendEvent(search_res.get('sample'), search_res.get('profiles')[0])
+#            return True
+#        else:
+#            return False
 
