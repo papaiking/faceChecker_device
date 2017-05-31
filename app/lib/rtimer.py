@@ -28,9 +28,10 @@ class RepeatedTimer(object):
         if not self.is_running:
             if self.found:
                 #interval = self.options.idle_internal
+                interval = self.options.checking_interval
                 # This session is for tempraty testing only
-                self.stop()
-                return
+                # self.stop()
+                # return
             else:
                 interval = self.options.checking_interval                
              

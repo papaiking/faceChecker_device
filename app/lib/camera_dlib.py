@@ -11,6 +11,7 @@ import os
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import cv2
+import dlib
 
 from init import Log
 
@@ -21,14 +22,11 @@ class Camera:
 
         # initialize the camera and grab a reference to the raw camera capture
         camera = PiCamera()
-        camera.resolution = (800, 600)
+        camera.resolution = (640, 480)
         self.camera = camera
 
-        # Init harr casscade 
-        script_dir = os.path.dirname( os.path.realpath(__file__) )
-        harr_file = os.path.join( script_dir, '..', self.config['DEFAULT'].get('HAAR_CASCADE') )
-        #Log.info('Harr casscade file: ' + harr_file)
-        self.harr_detector = cv2.CascadeClassifier( harr_file )
+        # Dlib init the detector
+        self.detector = dlib.get_frontal_face_detector()
 
 	
     # Generate file name for storing image
@@ -49,23 +47,19 @@ class Camera:
 	# Capture and check face in image
     def captureFaceimage(self, withFace=True):
         # grab an image from the camera
-        rawCapture = PiRGBArray(self.camera)
+        rawCapture = PiRGBArray(self.camera, size=(640, 480))
         self.camera.capture(rawCapture, format="bgr")
         bgrImg = rawCapture.array
-        #Log.info('Image size: ' + str(len(bgrImg)))
 
-        if withFace:
+        # Check weather image contains any face in it
+        if withFace and not(self._containFace( imgFile )):
             # Detect face in image. If there is no image, return None
-            grayImg = cv2.cvtColor(bgrImg, cv2.COLOR_BGR2GRAY)
-            faces = self.harr_detector.detectMultiScale ( 
-                grayImg, 
-                scaleFactor=1.1,
-                minNeighbors=5,
-                minSize=(100, 100),
-                flags = cv2.cv.CV_HAAR_SCALE_IMAGE
-            )
-            #Log.info('Number of faces: ' + str(len(faces)))
-            if (faces is None) or len(faces)==0:
+            # The 1 in the second argument indicates that we should up the image
+            # 1 time.  This will make everything bigger and allow us to detect more
+            # faces.
+            rgbImg = cv2.cvtColor(bgrImg, cv2.COLOR_BGR2RGB)
+            dets, scores, idx = self.detector.run( rgbImg, 1 )
+            if not(scores) or len(scores)==0:
                 return None
 
         # Save image int file

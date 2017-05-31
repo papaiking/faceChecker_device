@@ -17,7 +17,7 @@ class FaceChecker:
         self.event = Event(config)
         self.camera = Camera(config)
 
-        Log.info( 'Linkedface token is: ' + self.search.linkedface_token )
+        #Log.info( 'Linkedface token is: ' + self.search.linkedface_token )
 
     """
     This function create a timer with checkpoint function. 
@@ -32,18 +32,20 @@ class FaceChecker:
     Start to check event: capture image, search and then send event
     """
     def checkPoint(self):
-        print ('Start a check point')
+        #Log.info ('Start a check point')
         # Capture image
-        captured_img = self.camera.captureFaceimage( withFace=False )
-        Log.info('Captured file is: ' + captured_img)
+        captured_img = self.camera.captureFaceimage( withFace=True)
+        if captured_img is None:
+            return False
+        Log.info('Captured face image: ' + captured_img)
 
-#        # Search for image
-#        search_res = self.search.searchUser(captured_img)      
-#        if (search_res is not None) and (search_res.get('status')==1):
-#            #Log.info('Search response: ' + json.dumps(search_res))
-#            # Send event if happening
-#            self.event.sendEvent(search_res.get('sample'), search_res.get('profiles')[0])
-#            return True
-#        else:
-#            return False
+        # Search for image
+        search_res = self.search.searchUser(captured_img)      
+        if (search_res is not None) and (search_res.get('status')==1):
+            #Log.info('Search response: ' + json.dumps(search_res))
+            # Send event if happening
+            self.event.sendEvent(search_res.get('sample'), search_res.get('profiles')[0])
+            return True
+        else:
+            return False
 

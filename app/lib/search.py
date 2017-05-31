@@ -62,7 +62,9 @@ class Search:
             Log.error('Cannot open image file: ' + captured_img)
             return None
 
-        upload_url = self.config['Linkedface'].get('LINKEDAFCE_postimg')        
+        upload_url = self.config['Linkedface'].get('LINKEDAFCE_postimg')
+        # Log.info('Post url: ' + upload_url + ', file: ' + captured_img)
+ 
         files = { 'faceImage': imgFile }
         res = requests.post( upload_url, files=files ) 
 
@@ -81,7 +83,6 @@ class Search:
         - Search and return result
     """
     def searchUser(self, captured_img):
-        # Check wheather this is a valid image
 
         # Upload image for searching
         uploaded_img = self._uploadImage(captured_img)
