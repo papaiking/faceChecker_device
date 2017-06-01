@@ -1,4 +1,2 @@
-configparser==
-picamera==
-cv2==
-dlib==
+configparser==3.5.0
+picamera==1.12
