@@ -6,7 +6,7 @@ Repository: [https://github.com/papaiking/faceChecker_device.git](https://github
 
 This module is installed in Camera hub to do following tasks:
 
--   Request server to get [LINKEDFACE++](http://plusplus.linkedface.com/).s access token
+-   Request server to get [LINKEDFACE++](http://plusplus.linkedface.com/)'s access token
 -   Periodically capture image from camera, and call [LINKEDFACE++](http://plusplus.linkedface.com/) to search for user profile 
 -   If there is a profile founded, send it to server to make new event
 
@@ -38,7 +38,7 @@ Reference: [http://raspi.tv/2016/how-to-free-up-some-space-on-your-raspbian-sd-c
 
 ### Install OpenCV and Python on your Raspberry Pi 2 B+
 
-This step takes very long time - more than 1 hour to install OpenCV. We used Python 2.7.9 and OpenCV 2.4.11. There are some good documents for installing Python 2.7.9 and OpenCV 2.4 on Raspbian here:
+This step takes very long time - more than 1 hour to install OpenCV. We used Python 2.7.9 and OpenCV 2.4.11. Fortunately, there are some good documents for installing Python 2.7.9 and OpenCV 2.4 on Raspbian here:
 
 -   [http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/](http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/)
 -   [http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html](http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html)
@@ -52,11 +52,11 @@ Go to folder `~/facechecker`  and type command to download module:
 
 `pi@raspberrypi:~ $ git clone https://github.com/papaiking/faceChecker_device.git`
 
-Go to module folder and type command to install dependency:
+Go to module folder and type command to install dependencies:
 
 `pip install -r dependency.txt`
 
-You can follow below references to install dependency manually:
+You can follow below references to install dependencies manually:
 
 -   configparser: [https://pypi.python.org/pypi/configparser/](https://pypi.python.org/pypi/configparser/)
 -   PYTHON PICAMERA: [https://www.raspberrypi.org/documentation/usage/camera/python/README.md](https://www.raspberrypi.org/documentation/usage/camera/python/README.md)
@@ -65,11 +65,11 @@ You can follow below references to install dependency manually:
 # Configuration 
 
 ### Register device
-Use Administration application, access to device management to register device. After this step, you.ve got an TOKEN for you device
+Use Administration application, access to device management to register device. After this step, you.ve got an TOKEN for you device ((Refer to Administration application))
 
 ### Setting values
 
-Go to project folder, and open file: faceChecker_device/app/config/facechecker.cfg`
+Go to project folder, and open file: `faceChecker_device/app/config/facechecker.cfg`
 ``` 
   1 [DEFAULT]
   2 CHECKING_INTERVAL = 2
@@ -103,4 +103,4 @@ Update appropriate values.
 
 `./bin/facechecker [-f frequency] [-i idle_time]`
 
-If you specify frequency and idle_time it will overwrite default values CHECKING_INTERVAL and IDLE_INTERVAL in configuration file
+If you specify `frequency` and `idle_time` it will overwrite default values `CHECKING_INTERVAL` and `IDLE_INTERVAL` in configuration file
