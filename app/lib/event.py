@@ -29,7 +29,7 @@ class Event:
             "name": profile.get('name'),
             "picture": profile.get('picture'),
             "similarity": profile.get('similarity'),
-            "event_picture": self.config['Linkedface'].get('LINKEDAFCE_img_server') + evidence.get('fileName'),
+            "event_picture": evidence.get('fullpath'),
             "type": 1,
             "valid": 1
         }
